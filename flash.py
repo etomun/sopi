@@ -1,3 +1,4 @@
+import argparse
 import concurrent.futures.thread
 import time
 from datetime import datetime
@@ -109,10 +110,17 @@ def main():
 
 
 if __name__ == '__main__':
-    shop_id = 182286375
-    item_id = 21485793821
-    model_id = 204699335545
-    exec_at = int(datetime(2023, 12, 24, 00, 51, 00).timestamp() * 1000)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("productModel", help="shopId-itemId-modelId", type=str)
+    parser.add_argument("executionTime", help="year-month-day-hour-minute-second", type=str)
+    args = parser.parse_args()
+
+    arg_model = args.productModel.split('-')
+    arg_time = list(map(int, args.executionTime.split('-')))
+
+    shop_id, item_id, model_id = arg_model[0], arg_model[1], arg_model[2]
+    yyyy, ee, dd, hh, mm, ss = arg_time[0], arg_time[1], arg_time[2], arg_time[3], arg_time[4], arg_time[5]
+    exec_at = int(datetime(yyyy, ee, dd, hh, mm, ss).timestamp() * 1000)
 
     capabilities = {
         "platformName": "android",

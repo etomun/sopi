@@ -111,8 +111,13 @@ def wait_to_checkout():
 def main():
     time_difference = exec_at - (time.time() * 1000)
     if time_difference > 0:
-        print(f"Waiting for {time_difference / 1000} seconds")
-        time.sleep(time_difference / 1000)
+        while time.time() * 1000 < exec_at:
+            remaining_time = int(exec_at - time.time() * 1000)
+            minutes, secs = divmod(remaining_time // 1000, 60)
+            tf = '{:02d}:{:02d}'.format(minutes, secs)
+            print(tf, end='\r')
+            time.sleep(1)
+
         print(f"Bismillaahirohmaanirrohiim...")
         with concurrent.futures.ThreadPoolExecutor() as executor:
             [executor.submit(f) for f in [add_to_cart, wait_to_checkout]]
