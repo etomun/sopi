@@ -6,7 +6,8 @@ wait_for_page_changes() {
     while true; do
         new_focus_value=$(adb shell dumpsys window | grep "mCurrentFocus" | awk -F '[=}]' '{print $2}')
         if [[ "$new_focus_value" != "$current_focus" ]]; then
-            return
+          echo "Page Changed"
+          return
         fi
         sleep 0.1
     done
@@ -16,6 +17,7 @@ wait_for_page_changes() {
 wait_for_pin() {
     while true; do
       if adb -s localhost shell dumpsys window | grep -q "com.shopee.id/com.shopee.app.react.ReactTransparentActivity_"; then
+          echo "PIN Page"
           return
       fi
       sleep 0.1 # recheck
@@ -54,12 +56,12 @@ else
     adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
     sleep 1
     adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
-    wait_for_page_changes
 
+    wait_for_page_changes
     sleep 2
     adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
-    wait_for_page_changes
 
+    wait_for_pin
     sleep 1
     adb -s localhost shell input keyevent 11
     adb -s localhost shell input keyevent 9
