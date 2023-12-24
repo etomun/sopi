@@ -59,7 +59,7 @@ else
     adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
 
     wait_for_page_changes
-    sleep 2
+    sleep 3
     adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
 
     wait_for_pin
