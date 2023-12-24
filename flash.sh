@@ -39,9 +39,17 @@ else
     sleep "$remaining_seconds"
     echo "Start"
     adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
+    adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
+    adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
+    adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
+    adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
     sleep 1
     adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
+    adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
+    adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
     sleep 2
+    adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
+    adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
     adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
     sleep 3
     adb -s localhost shell input keyevent 11
