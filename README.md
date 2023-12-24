@@ -1,3 +1,3 @@
-1. Connect adb to device
-2. Set adb device: ```python device.py {Device Name} {OS Version}```
-3. Start timer: ```python flash.py shopId-productId-modelId yyyy-ee-dd-hh-mm-ss```
+1. Connect adb to localhost:555: ```adb connect localhost```
+2. Set flash.sh executable: ```chmod +x flash.sh```
+3. Execute flash.sh: ```./flash.sh```

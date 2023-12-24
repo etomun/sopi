@@ -6,16 +6,45 @@
 #    exit 1
 #fi
 
-adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
-sleep 2
-adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
-sleep 2
-adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
-sleep 4
-adb -s localhost shell input keyevent 11
-adb -s localhost shell input keyevent 9
-adb -s localhost shell input keyevent 11
-adb -s localhost shell input keyevent 11
-adb -s localhost shell input keyevent 12
-adb -s localhost shell input keyevent 13
+date_time="$1"
+if [ -z "$date_time" ]; then
+    echo "Error: Please provide the date-time string."
+    exit 1
+fi
+
+# Convert the date-time string to seconds since Unix epoch using the 'date' command with the '+%s' format.
+future_seconds=$(date -j -f "%Y-%m-%d %H:%M:%S" "$date_time" +%s 2>/dev/null)
+
+# Check if the conversion was successful
+# shellcheck disable=SC2181
+if [ $? -ne 0 ]; then
+    echo "Error: Invalid date-time format. Please use 'YYYY-MM-DD HH:MM:SS'."
+    exit 1
+fi
+
+current_millis=$(date +%s)
+
+# Convert future_seconds to millis if need
+#future_seconds=$((future_seconds * 1000))
+#current_millis=$((current_millis * 1000))
+
+remaining_seconds=$((future_seconds - current_millis))
+if [ "$remaining_seconds" -lt 0 ]; then
+    echo "Expired"
+else
+    echo "$remaining_seconds seconds to go"
+    sleep remaining_seconds
+    adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
+    sleep 1
+    adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
+    sleep 1
+    adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
+    sleep 3
+    adb -s localhost shell input keyevent 11
+    adb -s localhost shell input keyevent 9
+    adb -s localhost shell input keyevent 11
+    adb -s localhost shell input keyevent 11
+    adb -s localhost shell input keyevent 12
+    adb -s localhost shell input keyevent 13
+fi
 
