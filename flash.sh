@@ -38,6 +38,7 @@ else
     echo "$remaining_seconds seconds to go"
     sleep "$remaining_seconds"
     echo "Start"
+    sleep 1
     adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
     adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
     adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
@@ -57,10 +58,11 @@ else
     if adb -s localhost shell dumpsys window | grep -q "com.shopee.id/com.shopee.app.react.ReactTransparentActivity_"; then
         break
     else
-        sleep 0.2 # recheck
+        sleep 0.1 # recheck
     fi
     done
 
+    sleep 1
     echo "Start PIN"
     adb -s localhost shell input keyevent 11
     adb -s localhost shell input keyevent 9
