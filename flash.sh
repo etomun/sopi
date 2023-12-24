@@ -38,7 +38,8 @@ else
     echo "$remaining_seconds seconds to go"
     sleep "$remaining_seconds"
     echo "Start $(date)"
-    sleep 1
+#    adb shell input swipe start_x start_y end_x end_y duration
+    adb shell input swipe $((16#0000023d)) $((16#00000468)) $((16#0000023d)) $((16#000005e1)) 300
     adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
     adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
     adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
