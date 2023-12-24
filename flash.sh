@@ -47,11 +47,21 @@ else
 #    adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
 #    adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
     adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
-    sleep 2
-#    adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
-#    adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
+    sleep 1
     adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
-    sleep 3
+    adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
+    adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
+
+    # Run the dumpsys window command and check if the output contains the desired string
+    while true; do
+    if adb -s localhost shell dumpsys window | grep -q "com.shopee.id/com.shopee.app.react.ReactTransparentActivity_"; then
+        break
+    else
+        sleep 0.2 # recheck
+    fi
+    done
+
+    echo "Start PIN"
     adb -s localhost shell input keyevent 11
     adb -s localhost shell input keyevent 9
     adb -s localhost shell input keyevent 11
