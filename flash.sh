@@ -46,13 +46,11 @@ else
     adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
     wait_for_page_changes
 
-    sleep 1.3
-    adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
-    adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
+    sleep 2
     adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
     wait_for_page_changes
 
-    sleep 1.7
+    sleep 2
     adb -s localhost shell input keyevent 11
     adb -s localhost shell input keyevent 9
     adb -s localhost shell input keyevent 11
@@ -63,7 +61,8 @@ else
     end_time=$(date +%s)
     end_time=$((end_time * 1000))
     duration=$((end_time - start_time))
-    echo "Finish $(date) ($duration)"
+    duration=$((duration / 1000))
+    echo "Finish $(date) ($duration seconds)"
 fi
 
 echo "End Script"
