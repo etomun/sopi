@@ -13,10 +13,10 @@ if [ -z "$date_time" ]; then
 fi
 
 # For UNIX
-future_seconds=$(date -j -f "%Y-%m-%d %H:%M:%S" "$date_time" +%s 2>/dev/null)
+#future_seconds=$(date -j -f "%Y-%m-%d %H:%M:%S" "$date_time" +%s 2>/dev/null)
 
 # For Linux
-#future_seconds=$(date -d "$date_time" +%s 2>/dev/null)
+future_seconds=$(date -d "$date_time" +%s 2>/dev/null)
 
 # Check if the conversion was successful
 # shellcheck disable=SC2181
