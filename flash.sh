@@ -7,8 +7,11 @@
 #fi
 
 adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
+sleep 2
 adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
+sleep 2
 adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
+sleep 4
 adb -s localhost shell input keyevent 11
 adb -s localhost shell input keyevent 9
 adb -s localhost shell input keyevent 11
