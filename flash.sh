@@ -6,12 +6,12 @@
 #    exit 1
 #fi
 
-adb shell input tap $((16#0000031e)) $((16#0000089f))
-adb shell input tap $((16#0000031e)) $((16#0000089f))
-adb shell input tap $((16#0000031e)) $((16#0000089f))
-adb shell input keyevent 11
-adb shell input keyevent 9
-adb shell input keyevent 11
-adb shell input keyevent 11
-adb shell input keyevent 12
-adb shell input keyevent 13
+adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
+adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
+adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
+adb -s localhost shell input keyevent 11
+adb -s localhost shell input keyevent 9
+adb -s localhost shell input keyevent 11
+adb -s localhost shell input keyevent 11
+adb -s localhost shell input keyevent 12
+adb -s localhost shell input keyevent 13
