@@ -12,6 +12,16 @@ wait_for_page_changes() {
     done
 }
 
+# Monitor that PIN input is appear, it's just workarounds
+wait_for_pin() {
+    while true; do
+      if adb -s localhost shell dumpsys window | grep -q "com.shopee.id/com.shopee.app.react.ReactTransparentActivity_"; then
+          return
+      fi
+      sleep 0.1 # recheck
+    done
+}
+
 date_time="$1"
 if [ -z "$date_time" ]; then
     echo "Error: Please provide the date-time string."
@@ -50,7 +60,7 @@ else
     adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
     wait_for_page_changes
 
-    sleep 2
+    sleep 1
     adb -s localhost shell input keyevent 11
     adb -s localhost shell input keyevent 9
     adb -s localhost shell input keyevent 11
