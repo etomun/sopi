@@ -15,3 +15,5 @@ adb -s localhost shell input keyevent 11
 adb -s localhost shell input keyevent 11
 adb -s localhost shell input keyevent 12
 adb -s localhost shell input keyevent 13
+
+chmod +x adb_commands.sh
