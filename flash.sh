@@ -52,7 +52,7 @@ else
     adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
     wait_for_page_changes
 
-    sleep 1
+    sleep 1.7
     adb -s localhost shell input keyevent 11
     adb -s localhost shell input keyevent 9
     adb -s localhost shell input keyevent 11
