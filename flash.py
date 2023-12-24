@@ -106,6 +106,16 @@ def main():
         [executor.submit(f) for f in [wait_to_add_cart, wait_to_checkout]]
 
 
+def adb_shell(command):
+    try:
+        result = subprocess.run(['adb', 'shell'] + command, capture_output=True, text=True, check=True)
+        print(result.stdout)
+
+    except subprocess.CalledProcessError as e:
+        print(f"Error: {e}")
+        print(f"Error Output: {e.stderr}")
+
+
 if __name__ == '__main__':
     device_name = get_device_name()
     if len(device_name) <= 0:
@@ -141,3 +151,4 @@ if __name__ == '__main__':
             print("Expired")
         else:
             main()
+            # adb_shell(['am', 'start', '-n', "'com.shopee.id'/'com.shopee.app.react.ReactActivity_'"])
