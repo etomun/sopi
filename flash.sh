@@ -12,8 +12,11 @@ if [ -z "$date_time" ]; then
     exit 1
 fi
 
-# Convert the date-time string to seconds since Unix epoch using the 'date' command with the '+%s' format.
-future_seconds=$(date -j -f "%Y-%m-%d %H:%M:%S" "$date_time" +%s 2>/dev/null)
+# For UNIX
+#future_seconds=$(date -j -f "%Y-%m-%d %H:%M:%S" "$date_time" +%s 2>/dev/null)
+
+# For Linux
+future_seconds=$(date -d "$date_time" +%s 2>/dev/null)
 
 # Check if the conversion was successful
 # shellcheck disable=SC2181
