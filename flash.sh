@@ -9,7 +9,6 @@ wait_for_page_changes() {
           echo "Page Changed"
           return
         fi
-        echo "Test"
         sleep 0.2
     done
 }
@@ -59,11 +58,11 @@ else
     adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
 
     wait_for_page_changes
-    sleep 3
+    sleep 2.7
     adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
 
     wait_for_pin
-    sleep 2
+    sleep 1
     adb -s localhost shell input keyevent 11
     adb -s localhost shell input keyevent 9
     adb -s localhost shell input keyevent 11
