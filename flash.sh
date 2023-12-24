@@ -1,10 +1,16 @@
 #!/bin/bash
 
-# Check if ADB is installed
-#if ! command -v adb &> /dev/null; then
-#    echo "ADB is not installed. Please install Android SDK Platform-tools."
-#    exit 1
-#fi
+wait_for_page_changes() {
+    local current_focus=""
+    local new_focus_value=""
+    while true; do
+        new_focus_value=$(adb shell dumpsys window | grep "mCurrentFocus" | awk -F '[=}]' '{print $2}')
+        if [[ "$new_focus_value" != "$current_focus" ]]; then
+            return
+        fi
+        sleep 0.1
+    done
+}
 
 date_time="$1"
 if [ -z "$date_time" ]; then
@@ -14,11 +20,9 @@ fi
 
 # For UNIX
 #future_seconds=$(date -j -f "%Y-%m-%d %H:%M:%S" "$date_time" +%s 2>/dev/null)
-
 # For Linux
 future_seconds=$(date -d "$date_time" +%s 2>/dev/null)
 
-# Check if the conversion was successful
 # shellcheck disable=SC2181
 if [ $? -ne 0 ]; then
     echo "Error: Invalid date-time format. Please use 'YYYY-MM-DD HH:MM:SS'."
@@ -26,11 +30,6 @@ if [ $? -ne 0 ]; then
 fi
 
 current_seconds=$(date +%s)
-
-# Convert future_seconds to millis if need
-#future_seconds=$((future_seconds * 1000))
-#current_seconds=$((current_seconds * 1000))
-
 remaining_seconds=$((future_seconds - current_seconds))
 if [ "$remaining_seconds" -lt 0 ]; then
     echo "Expired"
@@ -38,39 +37,26 @@ else
     echo "$remaining_seconds seconds to go"
     sleep "$remaining_seconds"
     echo "Start $(date)"
-#    adb shell input swipe start_x start_y end_x end_y duration
+
     adb shell input swipe $((16#0000023d)) $((16#00000468)) $((16#0000023d)) $((16#000005e1)) 300
     adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
-    adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
-    adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
-#    adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
-#    adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
-    sleep 1
-#    adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
-#    adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
-    adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
     sleep 1
     adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
     adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
-    adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
+    wait_for_page_changes
 
-    # Run the dumpsys window command and check if the output contains the desired string
-    while true; do
-    if adb -s localhost shell dumpsys window | grep -q "com.shopee.id/com.shopee.app.react.ReactTransparentActivity_"; then
-        break
-    else
-        sleep 0.1 # recheck
-    fi
-    done
+    sleep 0.5
+    adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
+    wait_for_page_changes
 
     sleep 1
-    echo "Start PIN"
     adb -s localhost shell input keyevent 11
     adb -s localhost shell input keyevent 9
     adb -s localhost shell input keyevent 11
     adb -s localhost shell input keyevent 11
     adb -s localhost shell input keyevent 12
     adb -s localhost shell input keyevent 13
+
     echo "Finish $(date)"
 fi
 
