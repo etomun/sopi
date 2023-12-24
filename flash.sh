@@ -37,7 +37,7 @@ if [ "$remaining_seconds" -lt 0 ]; then
 else
     echo "$remaining_seconds seconds to go"
     sleep "$remaining_seconds"
-    echo "Start"
+    echo "Start $(date)"
     sleep 1
     adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
     adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
@@ -70,7 +70,7 @@ else
     adb -s localhost shell input keyevent 11
     adb -s localhost shell input keyevent 12
     adb -s localhost shell input keyevent 13
-    echo "Finish"
+    echo "Finish $(date)"
 fi
 
 echo "End Script"
