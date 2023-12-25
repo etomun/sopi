@@ -4,7 +4,7 @@ wait_for_page_changes() {
     local current_focus=""
     local new_focus_value=""
     while true; do
-        new_focus_value=$(adb shell dumpsys window | grep "mCurrentFocus" | awk -F '[=}]' '{print $2}')
+        new_focus_value=$(adb -s localhost shell dumpsys window | grep "mCurrentFocus" | awk -F '[=}]' '{print $2}')
         if [[ "$new_focus_value" != "$current_focus" ]]; then
           echo "Page Changed"
           return
@@ -53,7 +53,7 @@ else
     start_time=$(date +%s)
     start_time=$((start_time * 1000))
 
-    adb shell input swipe $((16#0000023d)) $((16#00000468)) $((16#0000023d)) $((16#000005e1)) 77
+    adb -s localhost input swipe $((16#0000023d)) $((16#00000468)) $((16#0000023d)) $((16#000005e1)) 77
     adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
     sleep 1
     adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
