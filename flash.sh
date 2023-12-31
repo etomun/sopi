@@ -52,7 +52,7 @@ else
     start_time=$(date +%s)
     start_time=$((start_time * 1000))
 
-    adb -s localhost input swipe $((16#0000023d)) $((16#00000468)) $((16#0000023d)) $((16#000005e1)) 77
+    adb -s localhost shell input swipe $((16#0000023d)) $((16#00000468)) $((16#0000023d)) $((16#000005e1)) 77
     adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
     sleep 1
     adb -s localhost shell input tap $((16#0000031e)) $((16#0000089f))
