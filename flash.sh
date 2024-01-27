@@ -63,6 +63,7 @@ else
     wait_for_pin
     sleep 1
 #    Add your PIN using adb keyevent
+#   Example: adb -s localhost shell input keyevent 01
 
     end_time=$(date +%s)
     end_time=$((end_time * 1000))

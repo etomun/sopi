@@ -55,7 +55,7 @@ def add_to_cart():
 def wait_to_checkout():
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch(headless=False)
-        context = browser.new_context(storage_state='data/auth/shop_ee_session_bellekit99.json')
+        context = browser.new_context(storage_state='optionally_add_your_session_here.json')
         page = context.new_page()
         page.set_default_timeout(9000)
         page.goto('https://shopee.co.id/cart/')
