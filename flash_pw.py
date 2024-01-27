@@ -67,7 +67,7 @@ def wait_to_checkout():
                 # page.wait_for_url(url='https://shopee.co.id/checkout/')
                 page.get_by_role("button", name="Buat Pesanan").click()
                 # page.wait_for_url(url='https://shopee.co.id/payment/as/place-order')
-                page.frame_locator("#tinyPinPage").locator("input[type=\"number\"]").fill("424456")
+                page.frame_locator("#tinyPinPage").locator("input[type=\"number\"]").fill("your-pin")
                 page.frame_locator("#tinyPinPage").get_by_role("button", name="Konfirmasi").click()
                 time.sleep(11)
                 break
