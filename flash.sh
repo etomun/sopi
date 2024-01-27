@@ -13,7 +13,6 @@ wait_for_page_changes() {
     done
 }
 
-# Monitor that PIN input is appear, it's just workarounds
 wait_for_pin() {
     while true; do
       if adb -s localhost shell dumpsys window | grep -q "com.shopee.id/com.shopee.app.react.ReactTransparentActivity_"; then
@@ -63,12 +62,7 @@ else
 
     wait_for_pin
     sleep 1
-    adb -s localhost shell input keyevent 11
-    adb -s localhost shell input keyevent 9
-    adb -s localhost shell input keyevent 11
-    adb -s localhost shell input keyevent 11
-    adb -s localhost shell input keyevent 12
-    adb -s localhost shell input keyevent 13
+#    Add your PIN using adb keyevent
 
     end_time=$(date +%s)
     end_time=$((end_time * 1000))
